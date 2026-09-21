@@ -459,3 +459,44 @@ def coriolis_centrifugal_vector(q, qdot, epsilon=1e-6):
                 )
 
     return c
+
+def coriolis_matrix(q, qdot, epsilon=1e-6):
+    """
+    Compute the Coriolis matrix C(q, qdot) using Christoffel symbols.
+
+    Convention:
+        c(q, qdot) = C(q, qdot) @ qdot
+
+    The derivatives of M(q) are evaluated using central finite differences.
+    """
+    q = np.asarray(q, dtype=float)
+    qdot = np.asarray(qdot, dtype=float)
+
+    n = len(q)
+
+    # dM_dq[k, i, j] = d M_ij / d q_k
+    dM_dq = np.zeros((n, n, n))
+
+    for k in range(n):
+        dq = np.zeros(n)
+        dq[k] = epsilon
+
+        M_plus = mass_matrix(q + dq)
+        M_minus = mass_matrix(q - dq)
+
+        dM_dq[k] = (M_plus - M_minus) / (2.0 * epsilon)
+
+    C = np.zeros((n, n))
+
+    for i in range(n):
+        for j in range(n):
+            for k in range(n):
+                gamma_ijk = 0.5 * (
+                    dM_dq[k, i, j]
+                    + dM_dq[j, i, k]
+                    - dM_dq[i, j, k]
+                )
+
+                C[i, j] += gamma_ijk * qdot[k]
+
+    return C
