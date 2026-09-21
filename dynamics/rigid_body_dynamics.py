@@ -337,3 +337,125 @@ def mass_matrix(q):
     M = 0.5 * (M + M.T)
 
     return M
+
+def gravity_vector(q, gravity=9.81):
+    """
+    Compute the generalized gravity compensation torque vector.
+
+    Dynamics convention:
+        M(q) qddot + C(q, qdot) qdot + g(q) = tau
+
+    Therefore, g(q) represents the joint torques required to
+    statically compensate for gravity.
+
+    Parameters
+    ----------
+    q : array_like, shape (6,)
+        Joint angles [rad].
+
+    gravity : float
+        Gravitational acceleration magnitude [m/s^2].
+
+    Returns
+    -------
+    g : ndarray, shape (6,)
+        Gravity compensation joint torques [N m].
+    """
+
+    q = np.asarray(q, dtype=float)
+
+    # Translational and rotational Jacobians
+    # evaluated at each link center of mass.
+    Jv_list, _ = com_jacobians(q)
+
+    # Positive vector here represents the compensation force
+    # required against physical gravity acting in -Z.
+    gravity_compensation = np.array([
+        0.0,
+        0.0,
+        gravity
+    ])
+
+    g = np.zeros(N_JOINTS)
+
+    for i in range(N_JOINTS):
+
+        g += (
+            Jv_list[i].T
+            @ (
+                LINK_MASSES[i]
+                * gravity_compensation
+            )
+        )
+
+    return g
+
+def coriolis_centrifugal_vector(q, qdot, epsilon=1e-6):
+    """
+    Compute the Coriolis and centrifugal generalized torque vector.
+
+    Dynamics convention:
+        M(q) qddot + c(q, qdot) + g(q) = tau
+
+    where:
+        c(q, qdot) = C(q, qdot) qdot
+
+    The vector is computed from the Christoffel symbols using
+    numerical derivatives of the mass matrix.
+
+    Parameters
+    ----------
+    q : array_like, shape (6,)
+        Joint angles [rad].
+
+    qdot : array_like, shape (6,)
+        Joint velocities [rad/s].
+
+    epsilon : float
+        Central finite-difference perturbation [rad].
+
+    Returns
+    -------
+    c : ndarray, shape (6,)
+        Coriolis and centrifugal generalized torques [N m].
+    """
+
+    q = np.asarray(q, dtype=float)
+    qdot = np.asarray(qdot, dtype=float)
+
+    # dM_dq[k, i, j] = d M_ij / d q_k
+    dM_dq = np.zeros(
+        (N_JOINTS, N_JOINTS, N_JOINTS)
+    )
+
+    for k in range(N_JOINTS):
+
+        dq = np.zeros(N_JOINTS)
+        dq[k] = epsilon
+
+        M_plus = mass_matrix(q + dq)
+        M_minus = mass_matrix(q - dq)
+
+        dM_dq[k] = (
+            M_plus - M_minus
+        ) / (2.0 * epsilon)
+
+    c = np.zeros(N_JOINTS)
+
+    for i in range(N_JOINTS):
+        for j in range(N_JOINTS):
+            for k in range(N_JOINTS):
+
+                gamma_ijk = 0.5 * (
+                    dM_dq[k, i, j]
+                    + dM_dq[j, i, k]
+                    - dM_dq[i, j, k]
+                )
+
+                c[i] += (
+                    gamma_ijk
+                    * qdot[j]
+                    * qdot[k]
+                )
+
+    return c
