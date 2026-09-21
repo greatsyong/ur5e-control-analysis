@@ -1,0 +1,27 @@
+============================================================
+UR5e PYTHON <-> C++ CROSS-VALIDATION
+============================================================
+
+[KINEMATICS]
+TCP position                     max error = 3.795556e-09   tol = 1.000000e-08   PASS
+Jacobian singular values         max error = 2.513540e-09   tol = 1.000000e-08   PASS
+Jacobian condition number        error = 1.358716e-07   tol = 1.000000e-06   PASS
+
+[DYNAMICS]
+Mass matrix M(q)                 max error = 4.927087e-10   tol = 1.000000e-08   PASS
+Gravity vector g(q)              max error = 2.634103e-08   tol = 1.000000e-06   PASS
+Coriolis vector c(q,qdot)        max error = 5.595124e-10   tol = 1.000000e-06   PASS
+
+[TRAJECTORY]
+Trajectory midpoint q            max error = 0.000000e+00   tol = 1.000000e-12   PASS
+Trajectory midpoint qdot         max error = 0.000000e+00   tol = 1.000000e-12   PASS
+Trajectory start q               max error = 0.000000e+00   tol = 1.000000e-12   PASS
+Trajectory goal q                max error = 0.000000e+00   tol = 1.000000e-12   PASS
+Start velocity norm              error = 0.000000e+00   tol = 1.000000e-12   PASS
+Goal velocity norm               error = 0.000000e+00   tol = 1.000000e-12   PASS
+Start acceleration norm          error = 0.000000e+00   tol = 1.000000e-12   PASS
+Goal acceleration norm           error = 0.000000e+00   tol = 1.000000e-12   PASS
+
+============================================================
+OVERALL CROSS-VALIDATION: PASS
+============================================================
