@@ -18,3 +18,7 @@ env/
 .DS_Store
 Thumbs.db
 cpp/build/
+
+# Local compiled executables
+cpp/lqr_controller
+cpp/pid_cross_validation

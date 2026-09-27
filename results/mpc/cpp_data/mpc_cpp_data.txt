@@ -1,0 +1,16 @@
+UR5e finalized MPC C++ export manifest
+====================================================
+dt                  : 0.002
+Np                  : 160
+Nc                  : 40
+rho_u               : 10
+nx                  : 12
+nu                  : 6
+n_decision          : 240
+OSQP eps_abs/rel    : 1e-6 / 1e-6
+samples             : 2001
+P shape             : (240, 240)
+STATE_GRADIENT_MAP : (240, 12)
+reference gradients : (2001, 240)
+tau_ff_padded       : (2161, 6)
+P symmetry max err  : 1.490116e-08

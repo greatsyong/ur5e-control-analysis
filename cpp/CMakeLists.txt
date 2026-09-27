@@ -10,7 +10,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 find_package(Eigen3 REQUIRED)
-
+find_package(osqp CONFIG REQUIRED)
 
 # ============================================================
 # UR5e core library
@@ -97,4 +97,16 @@ target_link_libraries(
     cross_validation
     PRIVATE
         ur5e_core
+)
+
+add_executable(
+    mpc_controller
+    mpc_controller.cpp
+)
+
+target_link_libraries(
+    mpc_controller
+    PRIVATE
+        Eigen3::Eigen
+        osqp::osqp
 )
