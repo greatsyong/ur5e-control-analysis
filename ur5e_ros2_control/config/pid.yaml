@@ -1,0 +1,11 @@
+# Reference configuration for Part 1B PID.
+# The current C++ core uses these exact values; this file is kept as the
+# human-readable record of the gains currently hard-coded in controller_node.cpp.
+dt: 0.002
+duration: 4.0
+q_start_deg: [0.0, -90.0, 90.0, -90.0, -90.0, 0.0]
+q_goal_deg: [20.0, -60.0, 60.0, -70.0, -70.0, 20.0]
+kp: [423.454320, 1036.54331, 352.543417, 9.25748969, 2.01575776, 0.103024]
+kd: [127.036296, 310.962994, 105.763025, 2.77724691, 0.604727329, 0.0309072]
+ki: [7622.17776, 18657.7796, 6345.78150, 166.634814, 36.2836397, 1.854432]
+torque_limits: [150.0, 150.0, 150.0, 28.0, 28.0, 28.0]
