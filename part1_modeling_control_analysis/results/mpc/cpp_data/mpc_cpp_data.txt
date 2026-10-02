@@ -3,7 +3,7 @@ UR5e finalized MPC C++ export manifest
 dt                  : 0.002
 Np                  : 160
 Nc                  : 40
-rho_u               : 10
+rho_u               : 120
 nx                  : 12
 nu                  : 6
 n_decision          : 240

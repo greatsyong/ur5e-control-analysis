@@ -25,7 +25,7 @@ DURATION = 4.0
 
 NP = 160
 NC = 40
-RHO_U = 10.0
+RHO_U = 120.0
 
 TORQUE_LIMITS = np.array([
     150.0, 150.0, 150.0,
