@@ -1,0 +1,34 @@
+{
+  "algorithm": "sac",
+  "model_mass_kg": 3.0,
+  "actual_mass_kg": 5.0,
+  "seed": 42,
+  "requested_steps": 30000,
+  "actual_training_steps": 30000,
+  "elapsed_s": 4763.455019769986,
+  "environment": {
+    "reference_duration_s": 3.0,
+    "physics_dt_s": 0.002,
+    "control_dt_s": 0.02,
+    "controller": "G025",
+    "kp": 256.0,
+    "kd": 41.6,
+    "baseline_rmse_mm": 10.6358
+  },
+  "best_step": 27000,
+  "best_rmse_mm": 6.93388502800718,
+  "final_evaluation": {
+    "completed": true,
+    "control_steps": 150,
+    "final_time_s": 3.0,
+    "tool_rmse_mm": 6.965320009627678,
+    "partial_rmse_mm": 6.965320009627678,
+    "max_tool_error_mm": 8.492954391634038,
+    "final_tool_error_mm": 6.529042957015297,
+    "final_z_error_mm": -6.066165017952152,
+    "residual_rms_Nm": 2.9547391328191646,
+    "residual_peak_Nm": 4.968478679656982,
+    "saturation_steps": 0,
+    "improvement_pct": 34.510615001902266
+  }
+}
