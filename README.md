@@ -21,15 +21,7 @@ A computed-torque PD controller, **G025 (Kp = 256, Kd = 41.6)**, was selected as
 
 A bounded residual torque policy is added to the nominal controller:
 
-\[
-\tau_{\mathrm{cmd}}
-=
-\operatorname{clip}
-\left(
-\tau_{\mathrm{G025}}+\Delta\tau_{\mathrm{RL}},
--\tau_{\max},\tau_{\max}
-\right)
-\]
+τ_cmd = clip(τ_G025 + Δτ_RL, −τ_max, τ_max)
 
 - PPO, SAC, and TD3 continuous-action policy comparison
 - 49-dimensional observations and six-dimensional torque actions
